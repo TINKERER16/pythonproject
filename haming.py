@@ -19,14 +19,21 @@ def sender():
         temp = []
         c=i
         inc=counter
-        while  c<len(data_sent):
-            while counter!=0 and c<len(data_sent):
-                temp.append(data_sent[c])
-                c+=1
-                counter-=1
-            counter=inc
-            c+=inc
+        count_one = 0
+        while c < len(data_sent):
+            while counter != 0 and c < len(data_sent):
+                if data_sent[c] == 1:
+                    count_one += 1
+                c += 1
+                counter -= 1
+            counter = inc
+            c += inc
+        if count_one%2 == 0:
+            data_sent[i] = 0
+        else:
+            data_sent[i] = 1
 
+    print(f"The encrypted data sent is {data_sent}")
 
 
 
