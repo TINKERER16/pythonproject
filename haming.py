@@ -22,6 +22,25 @@ def counter_one(i,data_sent):
         counter = inc
         c += inc
     return count_one
+def error_checking(error,data_sent):
+    temp=[]
+    for j in error:
+        i=pow(2,j)-1
+        counter = i + 1
+        c = i
+        inc = counter
+        temp1=[]
+        while c < len(data_sent):
+            while counter != 0 and c < len(data_sent):
+                temp1.append(c)
+                c += 1
+                counter -= 1
+            counter = inc
+            c += inc
+        temp.append(temp1)
+    for i in temp[0]:
+        if i in temp[1]:
+            return i
 
 def sender():
     send = input("Enter the sending data in binary")
@@ -48,17 +67,30 @@ def sender():
 def receiver():
     encoded_data=input("Enter the received data")
     position=position_loc(encoded_data)
-
+    final_ans=[i for i in encoded_data]
     error = []
+    pos_error=[]
     for i in position:
 
         count_one=counter_one(i,encoded_data)
         if count_one%2==0:
             error.append(False)
         else:
+            pos_error.append(len(error))
             error.append(True)
     if True not  in error:
         print("no error found in the code")
+    else:
+
+        print("error in the code")
+        p=error_checking(pos_error,encoded_data)
+        print(f"The error was at {p+1} position")
+        if final_ans[p] == 0:
+            final_ans[p]='1'
+        else:
+            final_ans[p]='0'
+
+        print(f"The corrected data is{final_ans}")
 
 
 
