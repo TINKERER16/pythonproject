@@ -13,12 +13,20 @@ def sender():
         while len(data_sent) in position:
             data_sent.append(-1)
         data_sent.append(int(i))
-    print(data_sent)
-    # for i in position:
-    #     i += 1
-    #     temp = []
-    #     c=i
-    #     while c<=len():
+    # print(data_sent)
+    for i in position:
+        counter=i+1
+        temp = []
+        c=i
+        inc=counter
+        while  c<len(data_sent):
+            while counter!=0 and c<len(data_sent):
+                temp.append(data_sent[c])
+                c+=1
+                counter-=1
+            counter=inc
+            c+=inc
+
 
 
 
