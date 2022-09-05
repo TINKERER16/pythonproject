@@ -17,7 +17,7 @@ def crc(data, key):
         temp2 = []
         while (data[a] == 0 and a < len(data)):
             a += 1
-        if (a + len(key) - 1 > len(data)):
+        if (a + len(key) - 1 >= len(data)):
             break
         else:
             for i in range(len(key)):
