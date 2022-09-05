@@ -9,13 +9,13 @@ def xor(data, key):
     return data
 
 
-def crc(data, key):
+def crc(data, key,type):
     temp3 = [data[i] for i in range(len(data))]
 
     while (True):
         a = 0
         temp2 = []
-        while (data[a] == 0 and a < len(data)):
+        while (data[a] == 0 and a < len(data)-1):
             a += 1
         if (a + len(key) - 1 >= len(data)):
             break
@@ -28,16 +28,23 @@ def crc(data, key):
             for i in range(len(key)):
                 data[a] = b[i]
                 a += 1
-    a += 1
-    while (a < len(data)):
-        b.append(data[a])
+    if type==0:
         a += 1
-    b = b[-(len(key) - 1):]
-    c = len(temp3) - len(key) + 1
-    for i in range(len(key) - 1):
-        temp3[c] = b[i]
-        c += 1
-    print(temp3)
+        while (a < len(data)):
+            b.append(data[a])
+            a += 1
+        b = b[-(len(key) - 1):]
+        c = len(temp3) - len(key) + 1
+        for i in range(len(key) - 1):
+            temp3[c] = b[i]
+            c += 1
+        print(f"the checksum bit is {b}")
+        print(f"The sending data is {temp3}")
+    elif type==1:
+        if 1 in data:
+            print("There is error")
+        else:
+            print("This is proper data")
 
 
 def sender():
@@ -47,7 +54,15 @@ def sender():
         data = data + "0"
     print(f"before completging {data}")
     temp = [int(i) for i in data]
-    crc(temp, key)
+    crc(temp, key,0)
+def reciver():
+    data = input("Enter the data to be sent in binary")
+    key = input("Enter the  key ")
+    temp = [int(i) for i in data]
+    crc(temp,key,1)
 
-
-sender()
+a=int(input("Enter which mode 0.Sender 1.Reciver"))
+if a==0:
+    sender()
+elif a==1:
+    reciver()
