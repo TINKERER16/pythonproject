@@ -1,3 +1,4 @@
+import json
 def xor(data, key):
     a = 0
     for i in key:
@@ -38,8 +39,16 @@ def crc(data, key,type):
         for i in range(len(key) - 1):
             temp3[c] = b[i]
             c += 1
+        d = ""
+        for i in temp3:
+
+            d = d + str(i)
+
+        with open("data.txt","w") as t:
+            t.write(json.dumps({"data":d,"key":key}))
+
         print(f"the checksum bit is {b}")
-        print(f"The sending data is {temp3}")
+        print(f"The sending data is {d}")
     elif type==1:
         if 1 in data:
             print("There is error")
@@ -56,13 +65,18 @@ def sender():
     temp = [int(i) for i in data]
     crc(temp, key,0)
 def reciver():
-    data = input("Enter the data to be sent in binary")
-    key = input("Enter the  key ")
+    with open("data.txt") as t:
+        t=t.read()
+        dict=json.loads(t)
+        key=dict["key"]
+        data=dict["data"]
     temp = [int(i) for i in data]
     crc(temp,key,1)
-
-a=int(input("Enter which mode 0.Sender 1.Reciver"))
-if a==0:
-    sender()
-elif a==1:
-    reciver()
+while(True):
+    a=int(input("Enter which mode 0.Sender 1.Reciver 2.Exit"))
+    if a==0:
+        sender()
+    elif a==1:
+        reciver()
+    elif a==2:
+        break

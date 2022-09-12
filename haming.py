@@ -1,7 +1,8 @@
+import json
 def position_loc(array):
     a = 0
     position = []
-    while pow(2, a) - 1 <= len(array):
+    while pow(2, a) - 1 <= len(array)+len(position):
         position.append(pow(2, a) - 1)
         a += 1
     a -= 1
@@ -58,16 +59,25 @@ def sender():
             data_sent[i] = 0
         else:
             data_sent[i] = 1
+    d=""
+    for i in data_sent:
+        d = d + str(i)
 
-    print(f"The encrypted data sent is {data_sent}")
+    with open("data.txt", "w") as t:
+        t.write(json.dumps({"data": d}))
+
+    print(f"The encrypted data sent is {d}")
 
 
 
 
 def receiver():
-    encoded_data=input("Enter the received data")
+    with open("data.txt") as t:
+        t = t.read()
+        dict = json.loads(t)
+        encoded_data = dict["data"]
     position=position_loc(encoded_data)
-    final_ans=[i for i in encoded_data]
+    final_ans=[int(i) for i in encoded_data]
     error = []
     pos_error=[]
     for i in position:
@@ -94,9 +104,11 @@ def receiver():
 
 
 
-
-a = int(input("Enter sender or receiver mode input0,1:"))
-if a==0:
-    sender()
-if a==1:
-    receiver()
+while(True):
+    a = int(input("Enter which mode 0.Sender 1.Reciver 2.Exit"))
+    if a==0:
+        sender()
+    if a==1:
+        receiver()
+    if a==2:
+        break
