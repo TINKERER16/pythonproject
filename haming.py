@@ -1,10 +1,15 @@
 import json
-def position_loc(array):
+def position_loc(array,b=0):
     a = 0
     position = []
-    while pow(2, a) - 1 <= len(array)+len(position):
-        position.append(pow(2, a) - 1)
-        a += 1
+    if b==0:
+        while pow(2, a) - 1 <= len(array)+len(position):
+            position.append(pow(2, a) - 1)
+            a += 1
+    else:
+        while pow(2, a) - 1 <= len(array):
+            position.append(pow(2, a) - 1)
+            a += 1
     a -= 1
     return position
 
@@ -76,7 +81,7 @@ def receiver():
         t = t.read()
         dict = json.loads(t)
         encoded_data = dict["data"]
-    position=position_loc(encoded_data)
+    position=position_loc(encoded_data,1)
     final_ans=[int(i) for i in encoded_data]
     error = []
     pos_error=[]
