@@ -43,9 +43,8 @@ centriod1 = []
 means=[]
 select_centriod(no_of_clusters)
 centriod2=[]
-clusters1 = -1 #dummy no for cluster1 and cluster2#
-clusters2 =-2
-while clusters1!=clusters2:
+
+while True:
     clusters1 = cluster(centriod1)
     for i in range(no_of_clusters):
         centriod2.append(round(sum(clusters1[i])/len(clusters1[i]),2))
@@ -57,6 +56,7 @@ while clusters1!=clusters2:
             centriod1.append(round(sum(clusters1[i]) / len(clusters1[i]),2))
         clusters2=[]
         centriod2=[]
-
+    else:
+        break
 print(f"The final clusters are{clusters2}")
 print(f"Final centriod are{centriod2}")
