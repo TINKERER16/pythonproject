@@ -64,7 +64,7 @@ def sender():
             data_sent[i] = 0
         else:
             data_sent[i] = 1
-    d=""
+    d = ""
     for i in data_sent:
         d = d + str(i)
 
